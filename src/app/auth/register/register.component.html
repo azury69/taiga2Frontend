@@ -1,0 +1,88 @@
+<div class="auth-container flex justify-center items-center min-h-screen bg-gray-100">
+
+  <div class="auth-card bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+
+    <h2 class="auth-header text-3xl font-semibold text-gray-800 mb-6">Register</h2>
+
+    <form (ngSubmit)="register()" #registerForm="ngForm" class="auth-form space-y-4">
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="fullName"
+          name="fullName"
+          placeholder="Full Name"
+          required
+          class="auth-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          id="fullName"
+          #fullNameModel="ngModel"
+        />
+        <div *ngIf="fullNameModel.invalid && fullNameModel.touched" class="text-red-500 text-sm mt-1">
+          <div *ngIf="fullNameModel.errors?.['required']">Full Name is required.</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Email"
+          required
+          class="auth-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          id="email"
+          #emailModel="ngModel"
+        />
+        <div *ngIf="emailModel.invalid && emailModel.touched" class="text-red-500 text-sm mt-1">
+          <div *ngIf="emailModel.errors?.['required']">Email is required.</div>
+          <div *ngIf="emailModel.errors?.['email']">Please enter a valid email.</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Password"
+          required
+          class="auth-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          id="password"
+          #passwordModel="ngModel"
+        />
+        <div *ngIf="passwordModel.invalid && passwordModel.touched" class="text-red-500 text-sm mt-1">
+          <div *ngIf="passwordModel.errors?.['required']">Password is required.</div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input
+          type="password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          required
+          class="auth-input w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          id="confirmPassword"
+          #confirmPasswordModel="ngModel"
+        />
+        <div *ngIf="confirmPasswordModel.invalid && confirmPasswordModel.touched" class="text-red-500 text-sm mt-1">
+          <div *ngIf="confirmPasswordModel.errors?.['required']">Confirm Password is required.</div>
+          <div *ngIf="confirmPasswordModel.value !== password" class="text-red-500 text-sm mt-1">Passwords must match.</div>
+        </div>
+      </div>
+
+      <button type="submit"
+              [disabled]="registerForm.invalid || password !== confirmPassword"
+              class="auth-btn w-full py-3 px-4 bg-blue-600 text-white rounded-md text-lg font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-300">
+        Register
+      </button>
+    </form>
+
+    <p *ngIf="errorMessage" class="error-message text-red-500 text-sm mt-4 text-center">{{ errorMessage }}</p>
+
+    <p class="mt-6 text-center text-gray-600">
+      Already have an account? <a class="link text-blue-600 hover:underline cursor-pointer" (click)="navigateToLogin()">Login here</a>
+    </p>
+  </div>
+
+</div>

@@ -1,0 +1,119 @@
+<app-navbar></app-navbar>
+<div class="flex justify-between gap-8 mx-10">
+  <!-- Left container: Project Backlog -->
+  <div class="w-1/2 bg-white p-6 rounded-2xl my-20 shadow-lg">
+    <div class="backlog">
+      <h2 class="text-center text-black font-mono text-2xl mb-6 border-b pb-3">Project Backlog</h2>
+      <table class="min-w-full">
+        <thead>
+          <tr>
+            <th class="px-4 py-2 text-left">Story ID</th>
+            <th class="px-4 py-2 text-left">Title</th>
+            <th class="px-4 py-2 text-left">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let story of stories" class="border-b hover:bg-gray-50">
+            <td class="px-4 py-2">{{ story.id }}</td>
+            <td class="px-4 py-2">{{ story.name }}</td>
+            <td class="px-4 py-2">{{ story.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="flex justify-center mt-8">
+      <button class="border bg-black text-white p-3 rounded-xl" (click)="showStoryModel = true">Create Story</button>
+    </div>
+  </div>
+<!-- Right container: Sprints -->
+<div class="w-full bg-white p-6 rounded-2xl my-20 shadow-lg">
+  <!-- Sprint Header and Creation Button -->
+  <div class="flex justify-between items-center mb-6">
+    <h3 class="text-2xl font-semibold text-gray-800">Sprints ({{ sprints.length }})</h3>
+    <button class="border bg-black text-white p-4 rounded-xl text-lg" (click)="showSprintModal = true">Create Sprint</button>
+  </div>
+
+  <!-- Sprint List (Larger, full section) -->
+  <div class="max-h-[700px] overflow-y-auto space-y-6">
+    <ul class="space-y-6">
+      <li *ngFor="let sprint of sprints; let i = index" class="flex justify-between items-start bg-slate-100 p-6 rounded-xl shadow-lg hover:shadow-md transition duration-300 ease-in-out">
+        <!-- Sprint Details -->
+        <div class="flex flex-col space-y-4 w-4/5">
+          <h3 class="text-xl font-semibold text-gray-800">Sprint {{ i + 1 }} (ID: {{ sprint.id }})</h3>
+          <div class="flex space-x-6 text-sm text-gray-600">
+            <p><strong>Start:</strong> {{ sprint.startDate | date: 'shortDate' }}</p>
+            <p><strong>End:</strong> {{ sprint.endDate | date: 'shortDate' }}</p>
+          </div>
+        </div>
+
+        <!-- Sprint Actions -->
+        <div class="flex flex-col items-center justify-between w-1/5">
+          <button class="text-blue-500 hover:text-blue-700 mb-3 text-lg" >
+            <span class="material-icons">add_circle</span> Add Story
+          </button>
+          <!-- (click)="addStoryToSprint(sprint)"(click)="deleteSprint(sprint.id) -->
+          <button class="text-red-500 hover:text-red-700 text-lg" >
+            <span class="material-icons">delete</span>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Empty State for No Sprints -->
+  <div *ngIf="sprints.length === 0" class="text-center text-gray-500 py-8">
+    No sprints available.
+  </div>
+</div>
+
+<!-- Sprint Creation Modal -->
+<!-- <app-sprint-modal *ngIf="showSprintModal" (closeModal)="showSprintModal = false"></app-sprint-modal> -->
+
+
+
+<!-- Story Modal -->
+<div class="modal fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50" *ngIf="showStoryModel">
+  <div class="modal-content bg-white p-12 rounded-lg shadow-xl flex flex-col justify-evenly w-96">
+    <h3 class="text-2xl flex justify-between items-center mb-6">
+      Create Story
+      <span class="material-icons cursor-pointer" (click)="showStoryModel = false">close</span>
+    </h3>
+    <div>
+      <label class="block mb-2">Name:
+        <input type="text" [(ngModel)]="storyName" class="border p-2 mt-1 rounded w-full" />
+      </label>
+    </div>
+    <div>
+      <label class="block mb-2">Description:
+        <textarea [(ngModel)]="storyDescription" class="border p-2 mt-1 rounded w-full"></textarea>
+      </label>
+    </div>
+    <div>
+      <label class="block mb-2">Points:
+        <input type="number" [(ngModel)]="storyPoints" class="border p-2 mt-1 rounded w-full" />
+      </label>
+    </div>
+    <button class="border bg-black text-white p-3 rounded-xl mt-6" (click)="createStory()">Create</button>
+  </div>
+</div>
+
+<!-- Sprint Modal -->
+<div class="modal fixed inset-0 flex justify-center items-center bg-gray-900 bg-opacity-50" *ngIf="showSprintModal">
+  <div class="modal-content bg-white p-12 rounded-lg shadow-xl flex flex-col justify-evenly w-96">
+    <h3 class="text-2xl flex justify-between items-center mb-6">
+      Create Sprint
+      <span class="material-icons cursor-pointer" (click)="showSprintModal = false">close</span>
+    </h3>
+    <div>
+      <label class="block mb-2">Start Date:
+        <input type="date" [(ngModel)]="startDate" class="border p-2 mt-1 rounded w-full" />
+      </label>
+    </div>
+    <div>
+      <label class="block mb-2">End Date:
+        <input type="date" [(ngModel)]="endDate" class="border p-2 mt-1 rounded w-full" />
+      </label>
+    </div>
+    <button class="border bg-black text-white p-3 rounded-xl mt-6" (click)="createSprint()">Create</button>
+  </div>
+</div>

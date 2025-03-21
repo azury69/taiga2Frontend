@@ -1,0 +1,134 @@
+/* General Background */
+.project-landing {
+  background-color: #f9f9f9;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Create Project Button */
+.create-project-btn {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.create-project-btn button {
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.create-project-btn button:hover {
+  background-color: #0056b3;
+}
+
+.create-project-btn button:focus {
+  outline: none;
+}
+
+/* Section for Projects */
+.working-on-section {
+  margin-top: 30px;
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Grid for Project Cards */
+.projects-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+/* Project Card Styling */
+.project-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 15px;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.project-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Project Title */
+.project-item h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.project-item p {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* Delete Button */
+.project-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.project-actions .delete-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 22px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.project-actions .delete-btn:hover {
+  color: #c0392b;
+}
+
+.project-actions .delete-btn:focus {
+  outline: none;
+}
+
+/* Icon Styling */
+.icon {
+  font-size: 20px;
+}
+
+/* Link Styling */
+.project-item a {
+  text-decoration: none;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.project-item a:hover {
+  color: #0056b3;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .projects-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}

@@ -1,0 +1,10 @@
+<div *ngIf="!isLoggedIn">
+  <div class="auth-container">
+    <router-outlet></router-outlet> <!-- Login/Register components -->
+  </div>
+</div>
+
+<!-- If logged in, render the content here -->
+<div *ngIf="isLoggedIn">
+  <router-outlet></router-outlet> <!-- Landing page or other components -->
+</div>

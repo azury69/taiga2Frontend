@@ -1,0 +1,40 @@
+<form [formGroup]="inviteForm" (ngSubmit)="onSubmit()" class="p-6 bg-white rounded-lg  w-full max-w-md mx-auto">
+    <h2 class="text-xl font-semibold mb-6 text-center">Invite a User to the Project</h2>
+  
+    <div class="mb-4">
+      <label for="invitedUserEmail" class="block text-gray-700 font-medium">User Email</label>
+      <select
+        id="invitedUserEmail"
+        formControlName="invitedUserEmail"
+        class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <option value="" selected>Select a user</option>
+        <option *ngFor="let user of users" [value]="user.email">{{ user.email }}</option>
+      </select>
+    </div>
+  
+    <div class="mb-4">
+      <label for="role" class="block text-gray-700 font-medium">Role</label>
+      <select
+        id="role"
+        formControlName="role"
+        class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+      <option value="ProductOwner">Product Owner</option>
+      <option value="ProjectManager">Project Manager</option>
+      <option value="Developer">Developer</option>
+      <option value="QA">QA</option>
+      <option value="Viewer">Viewer</option>
+      </select>
+    </div>
+  
+    <div class="flex justify-end mt-4">
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+      >
+        Send Invitation
+      </button>
+    </div>
+  </form>
+  
