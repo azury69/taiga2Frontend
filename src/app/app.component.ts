@@ -6,28 +6,31 @@ import { AuthService } from './core/service/auth.service';
 import { CommonModule, NgIf } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from "./project/navbar/navbar.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NgIf,HttpClientModule,CommonModule,FormsModule,RouterModule], // Include imports if necessary like `CommonModule`, `FormsModule`
+  imports: [RouterOutlet, NgIf, HttpClientModule, CommonModule, FormsModule, RouterModule, NavbarComponent], // Include imports if necessary like `CommonModule`, `FormsModule`
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   isLoggedIn :boolean = false;
   showRegister: boolean = false;  // Default to show login page first
-
-  toggleRegister() {
-    this.showRegister = !this.showRegister;  // Toggle between login and register form
-  }
   constructor(private authService: AuthService, private router: Router) {
-    
+    this.authService.isLoggedIn$.subscribe((status) => {
+      this.isLoggedIn = status;
+    });
   }
   ngOnInit() {
     this.authService.checkLogin(); // only call once on app load
-
+    
   }
+  
+    toggleRegister() {
+      this.showRegister = !this.showRegister;  // Toggle between login and register form
+    }
   logout() {
     this.authService.logout().subscribe(() => {
       this.isLoggedIn = false;

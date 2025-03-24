@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProjectLandingComponent } from './project-landing/project-landing.component';
+import { ProjectLandingComponent } from './project/project-landing/project-landing.component';
 import { ProjectDetailsComponent } from './project/project-details/project-details.component';
-import { CreateProjectComponent } from './create-project/create-project.component';
+import { CreateProjectComponent } from './project/create-project/create-project.component';
 import { AuthGuard } from './core/guard/auth.guard';
-import { WebsiteLandingPageComponent } from './landing/website-landing-page/website-landing-page.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
+import { WebsiteLandingPageComponent } from './project/website-landing-page/website-landing-page.component';
+import { SprintDetailsComponent } from './project/sprint-details/sprint-details.component';
 export const routes: Routes = [
   { path: '', redirectTo: '/product', pathMatch: 'full' },
   { path: 'product', component: WebsiteLandingPageComponent },
@@ -14,8 +15,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'landing', component: ProjectLandingComponent , canActivate: [AuthGuard]},  
   { path: 'project/:id', component: ProjectDetailsComponent, canActivate: [AuthGuard] },
-  { path: 'create-project', component: CreateProjectComponent , canActivate: [AuthGuard]},
-
+  { path: 'project/:projectId/sprint/:sprintId', component: SprintDetailsComponent , canActivate: [AuthGuard]},
   {path:'**',redirectTo:'product'}
 ];
 @NgModule({

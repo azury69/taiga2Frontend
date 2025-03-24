@@ -6,6 +6,7 @@ import { Sprint } from '../models/sprint.model';
   providedIn: 'root'
 })
 export class SprintService {
+
   private apiUrl = 'https://localhost:7227/api';
   private sprintSubject:BehaviorSubject<Sprint[]>=new BehaviorSubject<Sprint[]>([]);
   sprint$:Observable<Sprint[]>=this.sprintSubject.asObservable();
@@ -42,4 +43,8 @@ export class SprintService {
       })
     );
   }
+  deleteSprint(sprintId:number){
+    return this.http.delete(`${this.apiUrl}/sprint/${sprintId}`)
+  }
+
 }

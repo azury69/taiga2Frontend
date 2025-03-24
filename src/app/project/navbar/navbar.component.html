@@ -31,35 +31,37 @@
     </div>
   </div>
   
-  <!-- Right: Notifications Dropdown -->
-  <div class="relative">
-    <button 
-      (click)="toggleNotificationDropdown()" 
-      class="flex items-center gap-2 text-gray-800 font-semibold bg-gray-100 p-2 rounded-md hover:bg-gray-200 transition-all duration-200 ease-in-out">
-      <span class="material-icons">notifications</span>
-      Notifications
-      <span class="material-icons">expand_more</span>
-    </button>
+<!-- navbar.component.html -->
+<div class="relative">
+  <button
+    (click)="toggleNotificationDropdown()"
+    class="flex items-center gap-2 text-gray-800 font-semibold bg-gray-100 p-2 rounded-md hover:bg-gray-200 transition-all duration-200 ease-in-out"
+  >
+    <span class="material-icons">notifications</span>
+    {{ notification }}
+    <span class="material-icons">expand_more</span>
+  </button>
 
-    <!-- Notification Dropdown Content -->
-    <div *ngIf="showNotificationDropdown" class="absolute right-0 mt-2 bg-white rounded-lg shadow-lg w-56 z-10">
-      <div class="p-4 space-y-2">
-        <ng-container *ngFor="let invitation of invitations">
-          <div class="flex items-center gap-2 p-2 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
-            <span class="material-icons">email</span>
-            You have an invitation to join the project {{ invitation.projectName }} as {{ invitation.role }}.
-            <button class="ml-2 text-blue-500">Accept</button>
-          </div>
-        </ng-container>
-
-        <hr class="my-2" />
-
-        <div class="text-center text-gray-600 text-sm">
-          No new notifications.
+  <!-- Notification Dropdown Content -->
+  <div *ngIf="showNotificationDropdown" class="absolute right-0 mt-2 bg-white rounded-lg shadow-lg w-56 z-10">
+    <div class="p-4 space-y-2">
+      <ng-container *ngFor="let invitation of invitations">
+        <div class="flex items-center gap-2 p-2 rounded-md text-gray-700 bg-gray-100 hover:bg-gray-200">
+          <span class="material-icons">email</span>
+          You have an invitation to join the project {{ invitation.projectId }} as {{ invitation.role }}.
+          <button class="ml-2 text-blue-500" (click)="openAcceptInvitationForm(invitation)">Accept</button>
         </div>
+      </ng-container>
+
+      <hr class="my-2" />
+
+      <div class="text-center text-gray-600 text-sm" *ngIf="!invitations.length">
+        No new notifications.
       </div>
     </div>
   </div>
+</div>
+
 
   <!-- Right: Logout -->
   <div *ngIf="isLoggedIn">

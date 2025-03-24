@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError,BehaviorSubject, tap } from 'rxjs';
 import { Project } from '../models/project.model';
+import { NotificationService } from './notification.service';
+import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,13 +12,12 @@ export class ProjectService {
   private projectSubject: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([]);
   projects$: Observable<Project[]> = this.projectSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private notificationservice:NotificationService) {}
 
   // Create a new project
   createProject(project: Project): Observable<Project> {
     return this.http.post<Project>(`${this.apiUrl}/projects`, project).pipe(
       tap((newProject) => {
-        // Update local state with the newly created project
         const currentProjects = this.projectSubject.getValue();
         this.projectSubject.next([...currentProjects, newProject]);
       }),
@@ -64,4 +65,48 @@ export class ProjectService {
       })
     );
   }
+
+  // Get all users
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/all-users`);
+  }
+
+  // Search users by email
+  searchUsers(query: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/search-users?query=${query}`);
+  }
+
+  // Send an invitation to a user for a project
+  sendInvitation(inviteData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/invitations/send`, inviteData).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error sending invitation', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  // Get pending invitations for the logged-in user
+  getPendingInvitations(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/invitations/pending`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error fetching pending invitations', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  // Accept an invitation
+  acceptInvitation(invitationId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/invitations/accept/${invitationId}`, {}).pipe(
+      tap(() => {
+        this.getAllProjects().subscribe();
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Error accepting invitation', error);
+        return throwError(error);
+      })
+    );
+  }
+
 }

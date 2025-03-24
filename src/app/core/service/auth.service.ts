@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   private apiUrl = 'https://localhost:7227/api/auth';
+ 
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggedIn$= this.isLoggedInSubject.asObservable();
 
@@ -39,8 +40,9 @@ export class AuthService {
   }
 
   checkLogin() {
-    this.http.get<boolean>('/api/Account/IsLoggedIn').subscribe(
+    this.http.get<boolean>('/IsLoggedIn').subscribe(
       (response) => {
+        // console.log(response);
         this.isLoggedInSubject.next(response); // true or false
       },
       () => {

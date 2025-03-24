@@ -15,6 +15,7 @@ export class AuthGuard implements CanActivate {
       take(1), // Take only the latest value
       map((isLoggedIn) => {
         if (isLoggedIn) {
+          console.log(isLoggedIn);
           return true; // Allow access
         } else {
           this.router.navigate(['/login']); // Redirect if not logged in

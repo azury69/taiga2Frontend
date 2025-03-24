@@ -21,7 +21,12 @@ export class StoryService {
       
     );
   }
-
+  updateStorySprint(storyId: number, sprintId: number): Observable<Story> {
+    return this.http.put<Story>(`/api/stories/${storyId}/sprint`, { sprintId });
+  }
+  updateStoryStatus(storyId: number, status: string): Observable<any> {
+    return this.http.patch(`/stories/${storyId}/status`, { status });
+  }
   createStory(story: Story): Observable<Story> {
     return this.http.post<Story>(`${this.apiUrl}`, story).pipe(
       tap((newStory) => {
@@ -42,5 +47,8 @@ export class StoryService {
         this.storySubject.next(updatedStories);
       })
     );
+  }
+  addStoryToSprint(storyId: number, sprintId: number): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/${storyId}/assignSprint/${sprintId}`, {});
   }
 }

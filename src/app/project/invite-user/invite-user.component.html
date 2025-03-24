@@ -1,0 +1,36 @@
+<div class="invite-user-container">
+  <h3>Invite User to Project</h3>
+  
+  <!-- Email Input Field -->
+  <input 
+    [(ngModel)]="searchQuery" 
+    (input)="searchUsers()" 
+    placeholder="Search by email" 
+    class="email-input" />
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading">Loading...</div>
+
+  <!-- Search Results -->
+  <div *ngIf="users.length > 0">
+    <ul>
+      <li *ngFor="let user of users">
+        <span>{{ user.email }}</span>
+
+        <!-- Role Dropdown (Individually bound to each user) -->
+        <select [(ngModel)]="selectedRole" required>
+          <option [ngValue]="role" *ngFor="let role of roleOptions">
+            {{ role }}
+          </option>
+        </select>
+
+        <button (click)="sendInvitation(user.email, selectedRole)">Invite</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- No results message -->
+  <div *ngIf="users.length === 0 && searchQuery">
+    <p>No users found with that email.</p>
+  </div>
+</div>

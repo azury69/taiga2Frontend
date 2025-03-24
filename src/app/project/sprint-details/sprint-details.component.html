@@ -1,0 +1,78 @@
+<div class="flex space-x-6 p-6 overflow-x-auto">
+    <!-- To Do Column -->
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="todo.value"
+      [cdkDropListConnectedTo]="[inProgressList, inReviewList, completedList, archivedList]"
+      class="bg-gray-100 rounded-lg p-4 w-72"
+      (cdkDropListDropped)="drop($event)"
+      id="todoList"
+    >
+      <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">To Do</h3>
+      <div *ngFor="let item of todo.value" cdkDrag [cdkDragData]="item" class="p-4 bg-white shadow-md rounded-lg cursor-pointer mb-2">
+        {{ item.name }}
+      </div>
+    </div>
+  
+    <!-- In Progress Column -->
+    <div
+      cdkDropList
+      #inProgressList="cdkDropList"
+      [cdkDropListData]="inProgress.value"
+      [cdkDropListConnectedTo]="[todoList, inReviewList, completedList, archivedList]"
+      class="bg-gray-100 rounded-lg p-4 w-72"
+      (cdkDropListDropped)="drop($event)" id="inProgressList"
+    >
+      <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">In Progress</h3>
+      <div *ngFor="let item of inProgress.value" cdkDrag [cdkDragData]="item" class="p-4 bg-white shadow-md rounded-lg cursor-pointer mb-2">
+        {{ item.name }}
+      </div>
+    </div>
+  
+    <!-- In Review Column -->
+    <div
+      cdkDropList
+      #inReviewList="cdkDropList"
+      [cdkDropListData]="codeReview.value"
+      [cdkDropListConnectedTo]="[todoList, inProgressList, completedList, archivedList]"
+      class="bg-gray-100 rounded-lg p-4 w-72"
+      (cdkDropListDropped)="drop($event)" id="inReviewList"
+    >
+      <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">In Review</h3>
+      <div *ngFor="let item of codeReview.value" cdkDrag [cdkDragData]="item" class="p-4 bg-white shadow-md rounded-lg cursor-pointer mb-2">
+        {{ item.name }}
+      </div>
+    </div>
+  
+    <!-- Completed Column -->
+    <div
+      cdkDropList
+      #completedList="cdkDropList"
+      [cdkDropListData]="qa.value"
+      [cdkDropListConnectedTo]="[todoList, inProgressList, inReviewList, archivedList]"
+      class="bg-gray-100 rounded-lg p-4 w-72"
+      (cdkDropListDropped)="drop($event)" id="completedList"
+    >
+      <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">qa</h3>
+      <div *ngFor="let item of qa.value" cdkDrag [cdkDragData]="item" class="p-4 bg-white shadow-md rounded-lg cursor-pointer mb-2">
+        {{ item.name }}
+      </div>
+    </div>
+  
+    <!-- Archived Column -->
+    <div
+      cdkDropList
+      #archivedList="cdkDropList"
+      [cdkDropListData]="done.value"
+      [cdkDropListConnectedTo]="[todoList, inProgressList, inReviewList, completedList]"
+      class="bg-gray-100 rounded-lg p-4 w-72"
+      (cdkDropListDropped)="drop($event)" id="archivedList"
+    >
+      <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">done</h3>
+      <div *ngFor="let item of done.value" cdkDrag [cdkDragData]="item" class="p-4 bg-white shadow-md rounded-lg cursor-pointer mb-2">
+        {{ item.name }}
+      </div>
+    </div>
+  </div>
+  

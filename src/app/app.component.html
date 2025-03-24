@@ -1,3 +1,6 @@
+<div *ngIf="isLoggedIn">
+  <app-navbar></app-navbar>  <!-- Always show the navbar if logged in -->
+</div>
 <div *ngIf="!isLoggedIn">
   <div class="auth-container">
     <router-outlet></router-outlet> <!-- Login/Register components -->
