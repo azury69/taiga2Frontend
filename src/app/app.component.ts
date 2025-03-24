@@ -16,25 +16,20 @@ import { NavbarComponent } from "./project/navbar/navbar.component";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  isLoggedIn :boolean = false;
+  checkLogin :boolean = false;
   showRegister: boolean = false;  // Default to show login page first
   constructor(private authService: AuthService, private router: Router) {
-    this.authService.isLoggedIn$.subscribe((status) => {
-      this.isLoggedIn = status;
-    });
-  }
+    this.authService.checkLogin(); // Check login status on app load
+    }
+  
   ngOnInit() {
     this.authService.checkLogin(); // only call once on app load
     
   }
-  
-    toggleRegister() {
+  toggleRegister() {
       this.showRegister = !this.showRegister;  // Toggle between login and register form
     }
   logout() {
-    this.authService.logout().subscribe(() => {
-      this.isLoggedIn = false;
-      this.router.navigate(['/product']);
-    });
+    this.authService.logout();
   }
 }

@@ -7,7 +7,7 @@ import { Sprint } from '../models/sprint.model';
 })
 export class SprintService {
 
-  private apiUrl = 'https://localhost:7227/api';
+  private apiUrl = 'http://localhost:7227/api';
   private sprintSubject:BehaviorSubject<Sprint[]>=new BehaviorSubject<Sprint[]>([]);
   sprint$:Observable<Sprint[]>=this.sprintSubject.asObservable();
 

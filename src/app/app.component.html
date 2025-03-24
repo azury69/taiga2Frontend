@@ -1,13 +1,13 @@
-<div *ngIf="isLoggedIn">
+<div *ngIf="checkLogin">
   <app-navbar></app-navbar>  <!-- Always show the navbar if logged in -->
 </div>
-<div *ngIf="!isLoggedIn">
+<div *ngIf="!checkLogin">
   <div class="auth-container">
     <router-outlet></router-outlet> <!-- Login/Register components -->
   </div>
 </div>
 
 <!-- If logged in, render the content here -->
-<div *ngIf="isLoggedIn">
+<div *ngIf="checkLogin">
   <router-outlet></router-outlet> <!-- Landing page or other components -->
 </div>

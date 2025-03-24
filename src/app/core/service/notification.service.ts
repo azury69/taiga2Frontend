@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NotificationService {
-  private baseUrl = `https://localhost:7227`; // Set your base URL if required
+  private baseUrl = `http://localhost:7227`; // Set your base URL if required
 
   constructor(private http: HttpClient) {}
 

@@ -12,6 +12,5 @@ export const appConfig: ApplicationConfig = {
     withInterceptorsFromDi()
   ),    
   { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-
  ]
 };

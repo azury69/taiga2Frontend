@@ -8,7 +8,7 @@ import { Story } from '../models/story.model';
 })
 export class SprintDetailsService {
 
-  private apiUrl = 'https://localhost:7227/api'; 
+  private apiUrl = 'http://localhost:7227/api'; 
 
   constructor(private http: HttpClient) {}
 

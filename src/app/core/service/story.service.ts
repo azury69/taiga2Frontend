@@ -7,7 +7,7 @@ import { Story } from '../models/story.model';
   providedIn: 'root'
 })
 export class StoryService {
-  private apiUrl = 'https://localhost:7227/api/story';
+  private apiUrl = 'http://localhost:7227/api/story';
   private storySubject = new BehaviorSubject<Story[]>([]);
   story$ = this.storySubject.asObservable();
 

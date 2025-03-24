@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, throwError,BehaviorSubject, tap } from 'rxjs';
 import { Project } from '../models/project.model';
 import { NotificationService } from './notification.service';
@@ -13,7 +13,15 @@ export class ProjectService {
   projects$: Observable<Project[]> = this.projectSubject.asObservable();
 
   constructor(private http: HttpClient,private notificationservice:NotificationService) {}
-
+  // private getAuthHeaders() {
+  //   const token = localStorage.getItem('token');
+  //   console.log('Token:', token);  // Log the token to see if it's there
+  //   const headers = new HttpHeaders({
+  //     Authorization: token ? `Bearer ${token}` : '',
+  //   });
+  //   console.log('Headers:', headers);  // Log the headers to see if the Authorization header is being set
+  //   return headers;
+  // }
   // Create a new project
   createProject(project: Project): Observable<Project> {
     return this.http.post<Project>(`${this.apiUrl}/projects`, project).pipe(
@@ -30,6 +38,7 @@ export class ProjectService {
 
   // Get all projects for the logged-in user
   getAllProjects(): Observable<Project[]> {
+
     return this.http.get<Project[]>(`${this.apiUrl}/getallprojects`).pipe(
       tap((projects) => {
         this.projectSubject.next(projects);
